@@ -1,0 +1,19 @@
+packages:
+  "recharts": "Powerful, responsive chart library for the dashboard and analytics pages"
+  "framer-motion": "For fluid, futuristic page transitions and staggered list animations"
+  "lucide-react": "Clean, consistent iconography"
+  "date-fns": "For formatting timestamps from the API"
+  "clsx": "Utility for conditionally joining classNames"
+  "tailwind-merge": "Utility for merging tailwind classes without style conflicts"
+
+images:
+  - path: "artifacts/genstar/public/images/hero-bg.png"
+    description: "Dark, moody, futuristic tech background with abstract glowing cyan and deep blue neural network nodes and data streams. High-end enterprise AI vibe."
+    aspect_ratio: "16:9"
+  - path: "artifacts/genstar/public/images/logo.png"
+    description: "Minimalist, sleek tech logo featuring a sharp geometric star intersecting with a digital network node. Cyan and electric blue glowing on a transparent background."
+    aspect_ratio: "1:1"
+
+notes:
+  - "The API client is pre-generated in @workspace/api-client-react. We will use those hooks directly, wrapped in local query invalidation logic."
+  - "Real-time components like the agent activity feed use TanStack Query's refetchInterval to poll the server."
