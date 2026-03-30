@@ -1,3 +1,18 @@
+🚀 GenStar — Agentic AI Enterprise Workflow System
+
+![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=vercel)
+![Status](https://img.shields.io/badge/Status-Active-blue?style=for-the-badge)
+![Built With](https://img.shields.io/badge/Built%20With-Agentic%20AI-purple?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
+---
+
+## 🌐 Live Prototype  
+👉 **[Click to View GenStar Live](https://gen-star-enterprise--vchidrawar99.replit.app)**
+
+
+
+
 # GenStar – Enterprise AI Workflow System
 
   Built for the ET Gen AI Hackathon.
