@@ -1,0 +1,1166 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: GenStar Enterprise AI Workflow System API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: employees
+    description: Employee management
+  - name: workflows
+    description: Workflow management
+  - name: tasks
+    description: Task management
+  - name: meetings
+    description: Meeting intelligence
+  - name: analytics
+    description: Analytics and reporting
+  - name: agents
+    description: AI agent activity
+  - name: audit
+    description: Audit logs
+  - name: chatbot
+    description: AI chatbot
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /employees:
+    get:
+      operationId: getEmployees
+      tags: [employees]
+      summary: Get all employees
+      responses:
+        "200":
+          description: List of employees
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Employee"
+    post:
+      operationId: createEmployee
+      tags: [employees]
+      summary: Create a new employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEmployeeRequest"
+      responses:
+        "201":
+          description: Created employee
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Employee"
+
+  /employees/{id}:
+    get:
+      operationId: getEmployee
+      tags: [employees]
+      summary: Get employee by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Employee
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Employee"
+    put:
+      operationId: updateEmployee
+      tags: [employees]
+      summary: Update employee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateEmployeeRequest"
+      responses:
+        "200":
+          description: Updated employee
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Employee"
+    delete:
+      operationId: deleteEmployee
+      tags: [employees]
+      summary: Delete employee
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /workflows:
+    get:
+      operationId: getWorkflows
+      tags: [workflows]
+      summary: Get all workflows
+      responses:
+        "200":
+          description: List of workflows
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Workflow"
+    post:
+      operationId: createWorkflow
+      tags: [workflows]
+      summary: Create a new workflow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateWorkflowRequest"
+      responses:
+        "201":
+          description: Created workflow
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workflow"
+
+  /workflows/{id}:
+    get:
+      operationId: getWorkflow
+      tags: [workflows]
+      summary: Get workflow by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Workflow
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workflow"
+    put:
+      operationId: updateWorkflow
+      tags: [workflows]
+      summary: Update workflow
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateWorkflowRequest"
+      responses:
+        "200":
+          description: Updated workflow
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workflow"
+    delete:
+      operationId: deleteWorkflow
+      tags: [workflows]
+      summary: Delete workflow
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /workflows/{id}/execute:
+    post:
+      operationId: executeWorkflow
+      tags: [workflows]
+      summary: Execute a workflow
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Execution started
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkflowExecution"
+
+  /tasks:
+    get:
+      operationId: getTasks
+      tags: [tasks]
+      summary: Get all tasks
+      parameters:
+        - name: workflowId
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: employeeId
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+    post:
+      operationId: createTask
+      tags: [tasks]
+      summary: Create a new task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTaskRequest"
+      responses:
+        "201":
+          description: Created task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+
+  /tasks/{id}:
+    get:
+      operationId: getTask
+      tags: [tasks]
+      summary: Get task by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+    put:
+      operationId: updateTask
+      tags: [tasks]
+      summary: Update task
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateTaskRequest"
+      responses:
+        "200":
+          description: Updated task
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+    delete:
+      operationId: deleteTask
+      tags: [tasks]
+      summary: Delete task
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessResponse"
+
+  /meetings:
+    get:
+      operationId: getMeetings
+      tags: [meetings]
+      summary: Get all meetings
+      responses:
+        "200":
+          description: List of meetings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Meeting"
+    post:
+      operationId: createMeeting
+      tags: [meetings]
+      summary: Upload meeting transcript and extract intelligence
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateMeetingRequest"
+      responses:
+        "201":
+          description: Meeting created with extracted data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Meeting"
+
+  /meetings/{id}:
+    get:
+      operationId: getMeeting
+      tags: [meetings]
+      summary: Get meeting by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Meeting
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Meeting"
+
+  /analytics/dashboard:
+    get:
+      operationId: getDashboardAnalytics
+      tags: [analytics]
+      summary: Get dashboard analytics data
+      responses:
+        "200":
+          description: Dashboard analytics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardAnalytics"
+
+  /analytics/productivity:
+    get:
+      operationId: getProductivityAnalytics
+      tags: [analytics]
+      summary: Get productivity analytics
+      responses:
+        "200":
+          description: Productivity analytics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductivityAnalytics"
+
+  /agents/activity:
+    get:
+      operationId: getAgentActivity
+      tags: [agents]
+      summary: Get current agent activity
+      responses:
+        "200":
+          description: Agent activity
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AgentActivity"
+
+  /audit/logs:
+    get:
+      operationId: getAuditLogs
+      tags: [audit]
+      summary: Get audit logs
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Audit logs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuditLog"
+
+  /chatbot/message:
+    post:
+      operationId: sendChatMessage
+      tags: [chatbot]
+      summary: Send a message to the AI chatbot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatMessageRequest"
+      responses:
+        "200":
+          description: Chatbot response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChatMessageResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+      required:
+        - success
+
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        department:
+          type: string
+        status:
+          type: string
+          enum: [active, inactive, on_leave]
+        productivityScore:
+          type: number
+        tasksCompleted:
+          type: integer
+        tasksInProgress:
+          type: integer
+        errorRate:
+          type: number
+        idleTime:
+          type: number
+        qualityScore:
+          type: number
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - email
+        - role
+        - department
+        - status
+        - productivityScore
+        - tasksCompleted
+        - tasksInProgress
+        - errorRate
+        - idleTime
+        - qualityScore
+        - createdAt
+        - updatedAt
+
+    CreateEmployeeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        department:
+          type: string
+      required:
+        - name
+        - email
+        - role
+        - department
+
+    UpdateEmployeeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        department:
+          type: string
+        status:
+          type: string
+
+    Workflow:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [draft, active, running, completed, failed, paused]
+        priority:
+          type: string
+          enum: [low, medium, high, critical]
+        slaDeadline:
+          type: string
+          format: date-time
+        ownerId:
+          type: integer
+        ownerName:
+          type: string
+        taskCount:
+          type: integer
+        completedTasks:
+          type: integer
+        riskScore:
+          type: number
+        bottlenecks:
+          type: array
+          items:
+            type: string
+        tasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/Task"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - description
+        - status
+        - priority
+        - taskCount
+        - completedTasks
+        - riskScore
+        - bottlenecks
+        - createdAt
+        - updatedAt
+
+    CreateWorkflowRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        priority:
+          type: string
+          enum: [low, medium, high, critical]
+        slaDeadline:
+          type: string
+          format: date-time
+        ownerId:
+          type: integer
+      required:
+        - name
+        - description
+        - priority
+
+    UpdateWorkflowRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+        slaDeadline:
+          type: string
+          format: date-time
+        ownerId:
+          type: integer
+
+    WorkflowExecution:
+      type: object
+      properties:
+        workflowId:
+          type: integer
+        executionId:
+          type: string
+        status:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        agentPipeline:
+          type: array
+          items:
+            type: string
+      required:
+        - workflowId
+        - executionId
+        - status
+        - startedAt
+        - agentPipeline
+
+    Task:
+      type: object
+      properties:
+        id:
+          type: integer
+        workflowId:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [pending, in_progress, completed, failed, blocked, escalated]
+        priority:
+          type: string
+          enum: [low, medium, high, critical]
+        assigneeId:
+          type: integer
+        assigneeName:
+          type: string
+        agentType:
+          type: string
+        dependencies:
+          type: array
+          items:
+            type: integer
+        deadline:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+        riskScore:
+          type: number
+        notes:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - description
+        - status
+        - priority
+        - dependencies
+        - riskScore
+        - createdAt
+        - updatedAt
+
+    CreateTaskRequest:
+      type: object
+      properties:
+        workflowId:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        priority:
+          type: string
+          enum: [low, medium, high, critical]
+        assigneeId:
+          type: integer
+        agentType:
+          type: string
+        dependencies:
+          type: array
+          items:
+            type: integer
+        deadline:
+          type: string
+          format: date-time
+      required:
+        - title
+        - description
+        - priority
+
+    UpdateTaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        priority:
+          type: string
+        assigneeId:
+          type: integer
+        agentType:
+          type: string
+        dependencies:
+          type: array
+          items:
+            type: integer
+        deadline:
+          type: string
+          format: date-time
+        notes:
+          type: string
+
+    Meeting:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        transcript:
+          type: string
+        date:
+          type: string
+          format: date-time
+        decisions:
+          type: array
+          items:
+            type: string
+        extractedTasks:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExtractedTask"
+        workflowId:
+          type: integer
+        status:
+          type: string
+          enum: [processing, processed, failed]
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - transcript
+        - date
+        - decisions
+        - extractedTasks
+        - status
+        - createdAt
+
+    ExtractedTask:
+      type: object
+      properties:
+        title:
+          type: string
+        owner:
+          type: string
+        deadline:
+          type: string
+        priority:
+          type: string
+      required:
+        - title
+        - owner
+        - deadline
+        - priority
+
+    CreateMeetingRequest:
+      type: object
+      properties:
+        title:
+          type: string
+        transcript:
+          type: string
+        date:
+          type: string
+          format: date-time
+      required:
+        - title
+        - transcript
+        - date
+
+    DashboardAnalytics:
+      type: object
+      properties:
+        totalWorkflows:
+          type: integer
+        activeWorkflows:
+          type: integer
+        completedWorkflows:
+          type: integer
+        failedWorkflows:
+          type: integer
+        totalTasks:
+          type: integer
+        completedTasks:
+          type: integer
+        pendingTasks:
+          type: integer
+        slaViolations:
+          type: integer
+        avgProductivityScore:
+          type: number
+        taskCompletionRate:
+          type: number
+        workflowDelayRate:
+          type: number
+        bottleneckCount:
+          type: integer
+        tasksByStatus:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChartDataPoint"
+        workflowsByPriority:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChartDataPoint"
+        taskCompletionTrend:
+          type: array
+          items:
+            $ref: "#/components/schemas/TrendDataPoint"
+        employeeProductivity:
+          type: array
+          items:
+            $ref: "#/components/schemas/EmployeeProductivityPoint"
+        riskAlerts:
+          type: array
+          items:
+            $ref: "#/components/schemas/RiskAlert"
+      required:
+        - totalWorkflows
+        - activeWorkflows
+        - completedWorkflows
+        - failedWorkflows
+        - totalTasks
+        - completedTasks
+        - pendingTasks
+        - slaViolations
+        - avgProductivityScore
+        - taskCompletionRate
+        - workflowDelayRate
+        - bottleneckCount
+        - tasksByStatus
+        - workflowsByPriority
+        - taskCompletionTrend
+        - employeeProductivity
+        - riskAlerts
+
+    ProductivityAnalytics:
+      type: object
+      properties:
+        employees:
+          type: array
+          items:
+            $ref: "#/components/schemas/EmployeeProductivityDetail"
+        departmentMetrics:
+          type: array
+          items:
+            $ref: "#/components/schemas/DepartmentMetric"
+        weeklyTrend:
+          type: array
+          items:
+            $ref: "#/components/schemas/TrendDataPoint"
+      required:
+        - employees
+        - departmentMetrics
+        - weeklyTrend
+
+    ChartDataPoint:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: number
+        color:
+          type: string
+      required:
+        - name
+        - value
+
+    TrendDataPoint:
+      type: object
+      properties:
+        date:
+          type: string
+        value:
+          type: number
+        label:
+          type: string
+      required:
+        - date
+        - value
+
+    EmployeeProductivityPoint:
+      type: object
+      properties:
+        name:
+          type: string
+        score:
+          type: number
+        tasksCompleted:
+          type: integer
+      required:
+        - name
+        - score
+        - tasksCompleted
+
+    EmployeeProductivityDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        department:
+          type: string
+        productivityScore:
+          type: number
+        tasksCompleted:
+          type: integer
+        errorRate:
+          type: number
+        idleTime:
+          type: number
+        qualityScore:
+          type: number
+        weeklyTrend:
+          type: array
+          items:
+            $ref: "#/components/schemas/TrendDataPoint"
+      required:
+        - id
+        - name
+        - department
+        - productivityScore
+        - tasksCompleted
+        - errorRate
+        - idleTime
+        - qualityScore
+        - weeklyTrend
+
+    DepartmentMetric:
+      type: object
+      properties:
+        department:
+          type: string
+        avgProductivity:
+          type: number
+        headcount:
+          type: integer
+        tasksCompleted:
+          type: integer
+      required:
+        - department
+        - avgProductivity
+        - headcount
+        - tasksCompleted
+
+    RiskAlert:
+      type: object
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum: [sla_risk, bottleneck, high_error_rate, idle_employee, workflow_stalled]
+        severity:
+          type: string
+          enum: [low, medium, high, critical]
+        message:
+          type: string
+        entityId:
+          type: integer
+        entityType:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - type
+        - severity
+        - message
+        - createdAt
+
+    AgentActivity:
+      type: object
+      properties:
+        agentId:
+          type: string
+        agentName:
+          type: string
+        agentType:
+          type: string
+          enum: [orchestrator, decision, data, action, verification, recovery, audit, monitoring]
+        status:
+          type: string
+          enum: [idle, processing, completed, failed]
+        currentTask:
+          type: string
+        workflowId:
+          type: integer
+        workflowName:
+          type: string
+        startedAt:
+          type: string
+          format: date-time
+        reasoning:
+          type: string
+      required:
+        - agentId
+        - agentName
+        - agentType
+        - status
+        - startedAt
+
+    AuditLog:
+      type: object
+      properties:
+        id:
+          type: integer
+        agentType:
+          type: string
+        action:
+          type: string
+        entityType:
+          type: string
+        entityId:
+          type: integer
+        details:
+          type: object
+        reasoning:
+          type: string
+        status:
+          type: string
+          enum: [success, failure, warning]
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - agentType
+        - action
+        - entityType
+        - status
+        - createdAt
+
+    ChatMessageRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        context:
+          type: string
+      required:
+        - message
+
+    ChatMessageResponse:
+      type: object
+      properties:
+        response:
+          type: string
+        sources:
+          type: array
+          items:
+            type: string
+      required:
+        - response
