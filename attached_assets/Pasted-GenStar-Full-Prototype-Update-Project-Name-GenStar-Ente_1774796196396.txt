@@ -1,0 +1,134 @@
+GenStar Full Prototype Update
+
+Project Name: GenStar – Enterprise AI Workflow System
+
+Objective:
+Build a fully functional multi-agent AI workflow system with meeting intelligence, customizable workflows, real-time analytics, and employee performance tracking, obeying the following strict requirements.
+
+Frontend Requirements
+Landing Page / Brand UI
+Top-brand professional look
+Animated logo and hero section
+Modern navigation bar with links:
+Dashboard
+Workflow Manager
+Meeting Intelligence
+Employee Tracker
+Analytics
+Reports
+Chatbot
+Sidebar
+Expandable sections for all major features
+Quick access buttons for:
+Add new employee
+Start workflow
+View audit logs
+Dashboard / Analytics
+Pie charts, heatmaps, bar charts, line charts for:
+Task completion
+Workflow delays
+Employee productivity
+SLA violations
+Predictive analytics and bottleneck warnings
+Risk scores for tasks and workflows
+Real-time updates (use WebSockets or polling)
+Workflow Manager
+Fully dynamic workflow editor:
+Add/remove tasks
+Assign task owners (employees or agents)
+Set dependencies and priorities
+Task execution triggers:
+Auto-run according to Orchestrator → Decision → Data → Action → Verification
+Buttons must be functional, not just UI placeholders
+Meeting Intelligence System
+Upload meeting transcript → AI extracts:
+Decisions
+Tasks
+Owners
+Deadlines
+Auto-create workflows and assign tasks
+Track task completion and escalate delays automatically
+Employee Task Management
+Employee login triggers:
+Task Assignment Agent
+Productivity tracking
+Shows real-time tasks and status
+
+Calculates Productivity Score:
+
+Productivity = (Tasks Completed × Quality Score) / Time Taken
+Tracks errors, idle time, and completion rate
+Chatbot Panel
+AI-powered (Gemini integration)
+Available on landing page
+Can answer queries about workflows, tasks, and analytics
+Backend Requirements
+Multi-Agent Workflow
+Orchestrator Agent: Breaks goals into tasks
+Decision Agent: Determines execution order, dependencies, priorities
+Data Agent: Fetches necessary information (employee, vendor, IT inventory, policies)
+Action Agent: Executes tasks via APIs, DB updates, email generation
+Verification Agent: Confirms task success and data validity
+Recovery Agent: Retry failed tasks, fallback to alternatives, escalate if necessary
+Audit Agent: Logs all actions, decisions, and reasoning in structured JSON
+Monitoring Agent: Tracks workflow health, predicts bottlenecks, SLA alerts
+Database
+Non-sleeping DB (MongoDB Atlas / Firebase Realtime)
+Stores:
+Employees
+Tasks and workflows
+Audit logs
+Performance metrics
+Meeting Intelligence
+Process uploaded transcript
+Extract tasks, owners, deadlines
+Auto-create workflow and assign tasks to employees/agents
+Analytics & Reporting
+Compute and display:
+Task completion rates
+Employee productivity scores
+Workflow bottlenecks
+SLA risks
+Heatmaps and pie charts for KPIs
+Auto Escalation & Alerts
+Detect stalled tasks → auto escalate to manager or alternate agent
+Real-time notifications in dashboard
+Customizable Workflows
+Admin can manually add a new employee or workflow
+Add/remove/edit tasks dynamically
+Set task dependencies, execution order, and priority
+UI / UX Requirements
+Modern, professional, and super sexy interface
+Multi-page navigation:
+Dashboard
+Workflow Manager
+Meeting Intelligence
+Analytics
+Employee Performance
+Reports
+Chatbot
+Real-time data updates
+Interactive graphs and charts (pie, heatmap, bar, line)
+Agent activity panel showing which agent is executing which task
+Audit logs panel
+Risk dashboard with bottleneck alerts
+Extra Features
+Predictive workflow health monitoring (task may fail → early warning)
+AI memory system (learns past failures and optimizes future decisions)
+Digital twin simulation (preview workflow before execution)
+Human-like negotiation agent for vendor/task selection
+Auto-task assignment and employee productivity tracking
+Multi-agent collaboration with full error-handling and self-healing workflow
+Output / Deliverable
+Fully working Replit prototype
+Functional landing page with all required modules
+Customizable workflow manager
+Meeting intelligence workflow extraction
+Real-time analytics and dashboards
+Employee login and task assignment system
+Chatbot panel with Gemini backend
+All multi-agent interactions fully functional
+
+✅ Important Note for Replit:
+
+Ensure all buttons are functional, workflows dynamic, and no manual intervention is required after setting up workflows. Use WebSockets or Realtime DB for instant updates. All agents must communicate as per Orchestrator → Decision → Data → Action → Verification → Recovery → Audit → Monitoring pipeline.
