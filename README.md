@@ -6,7 +6,6 @@
 👉 **[Click to View GenStar Live](https://gen-star-enterprise--vchidrawar99.replit.app)**
 
 
-![Deployed on Replit](https://img.shields.io/badge/Deployed%20on-Replit-orange?style=for-the-badge&logo=replit)
 
 # GenStar – Enterprise AI Workflow System
 
